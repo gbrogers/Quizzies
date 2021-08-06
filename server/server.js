@@ -15,9 +15,12 @@ app.get("/", (req, res) => {
 });
 
 //https://opentdb.com/api_config.php
-const baseURL = "https://opentdb.com/api.php?";
+const baseURL = "https://opentdb.com/api.php";
+
+let gameChoice = "";
 
 //endpoints
+app.get(`${baseURL}?${gameChoice}`, ctrl.getQuiz);
 
 const port = process.env.PORT || 4004;
 app.listen(port, () => {

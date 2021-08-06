@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>Quizzies</title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="./index.html">Home</a></li>
+          <li><a href="./quiz.html">Quizzies</a></li>
+          <li><a href="./suduko.html">Suduko</a></li>
+        </ul>
+      </nav>
+      <h1>Welcome to Quizzies!</h1>
+    </header>
+    <form>
+      <fieldset>
+        <legend>Quiz Set-Up</legend>
+
+        <div class="set-up" id="category">
+          <label for="categories">Choose a Category: </label>
+          <select name="categories">
+            <option class="category" value="any">Any Topic</option>
+            <option class="category" value="9">General Knowledge</option>
+            <option class="category" value="10">Entertainment: Books</option>
+            <option class="category" value="11">Entertainment: Film</option>
+            <option class="category" value="12">Entertainment: Music</option>
+            <option class="category" value="14">
+              Entertainment: Television
+            </option>
+            <option class="category" value="16">
+              Entertainment: Board Games
+            </option>
+            <option class="category" value="15">Entertainment: Music</option>
+            <option class="category" value="16">Entertainment: Music</option>
+            <option class="category" value="17">Nature and Science</option>
+            <option class="category" value="18">Science: Computers</option>
+            <option class="category" value="19">Science: Mathematics</option>
+            <option class="category" value="20">Mythology</option>
+            <option class="category" value="22">Geography</option>
+            <option class="category" class="category" value="24">
+              Politics
+            </option>
+            <option class="category" value="25">Art</option>
+            <option class="category" value="27">Animals</option>
+          </select>
+        </div>
+
+        <div class="set-up" id="difficulty">
+          <label for="difficulty">Choose a Difficulty: </label>
+          <select name="difficulty">
+            <option class="difficulty" value="any">Any</option>
+            <option class="difficulty" value="easy">Easy</option>
+            <option class="difficulty" value="medium">Medium</option>
+            <option class="difficulty" value="hard">Hard</option>
+          </select>
+        </div>
+
+        <div class="set-up" id="question-num">
+          <label for="question-num">Choose Number of Questions: </label>
+          <select name="question-num">
+            <option class="question-num" value="5">5</option>
+            <option class="question-num" value="10">10</option>
+            <option class="question-num" value="15">15</option>
+            <option class="question-num" value="20">20</option>
+            <option class="question-num" value="25">25</option>
+            <option class="question-num" value="30">30</option>
+          </select>
+        </div>
+        <button id="generate-game">Let's Do This!</button>
+      </fieldset>
+    </form>
+
+    <div class="question-location"></div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./quiz.js"></script>
+  </body>
+</html>
