@@ -1,9 +1,13 @@
 // const { getQuiz } = require("../server/controller/ctrl");
 
 const generate = document.getElementById("generate-game");
-
+const form = document.querySelector("form");
+const tryAgain = document.getElementById("try-again");
+const quesSection = document.querySelector(".question-section");
 const baseURL = "https://opentdb.com/api.php";
+
 console.log("here");
+
 const getInput = (e) => {
   e.preventDefault();
   console.log("button click happened");
@@ -42,25 +46,48 @@ const getInput = (e) => {
   let gameChoice = `${numQuestions}${category}${difficulty}`;
   getQuiz(gameChoice);
 };
-generate.addEventListener("click", getInput);
 
 getQuiz = (gameChoice) => {
   axios
     .get(`${baseURL}?${gameChoice}`)
     .then((res) => {
+      form.style.display = "none";
+      tryAgain.style.display = "block";
+      quesSection.style.display = "block";
       let quizQuestions = res.data.results;
       console.log(quizQuestions);
-      let quesSection = document.querySelector(".question-section");
-      // let singleQues;
-      // singleQues.innerHTML = "";
+
+      quesSection.innerHTML = "";
+
       for (let i = 0; i < quizQuestions.length; i++) {
         let singleQues = document.createElement("div");
-        singleQues.className = `Question${i}`;
+        singleQues.className = `Question${i + 1}`;
         singleQues.innerHTML = quizQuestions[i].question;
-        // singleQues.innerHTML +=
-        // console.log(`this is it! ${singleQues}`);
         quesSection.appendChild(singleQues);
+
+        let answerOptions = [
+          ...quizQuestions[i].incorrect_answers,
+          quizQuestions[i].correct_answer,
+        ];
+        console.log(answerOptions);
+
+        let ansOptionsSection = document.createElement("div");
+
+        for (let j = 0; j < answerOptions.length; j++) {
+          ansOptionsSection.innerHTML += `<input type="radio" class="Question${i}" name="answer${i}" value="JavaScript">
+          <label for="answer${j + 1}">${answerOptions[j]}</label>`;
+          singleQues.appendChild(ansOptionsSection);
+        }
       }
     })
     .catch((error) => console.log(error));
 };
+
+reset = () => {
+  form.style.display = "block";
+  quesSection.style.display = "none";
+  tryAgain.style.display = "none";
+};
+
+generate.addEventListener("click", getInput);
+tryAgain.addEventListener("click", reset);

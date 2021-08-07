@@ -2,9 +2,17 @@
   /* outline: 1px hotpink solid; */
 }
 fieldset {
-  height: 500px;
+  height: 200px;
 }
 
 .set-up {
-  height: 150px;
+  height: 50px;
+}
+
+.question-section > div {
+  outline: hotpink 1px solid;
+  padding: 10px;
+}
+#try-again {
+  display: none;
 }
