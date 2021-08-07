@@ -50,13 +50,16 @@ getQuiz = (gameChoice) => {
     .then((res) => {
       let quizQuestions = res.data.results;
       console.log(quizQuestions);
+      let quesSection = document.querySelector(".question-section");
+      // let singleQues;
+      // singleQues.innerHTML = "";
       for (let i = 0; i < quizQuestions.length; i++) {
-        // let regex = /&quot/g;
-        // let eachQuestion = quizQuestions[i].question;
-        // eachQuestion = eachQuestion.replace(regex, '"');
-        console.log(quizQuestions[i].question);
-        document.querySelector(".question-location").innerHTML =
-          quizQuestions[i].question;
+        let singleQues = document.createElement("div");
+        singleQues.className = `Question${i}`;
+        singleQues.innerHTML = quizQuestions[i].question;
+        // singleQues.innerHTML +=
+        // console.log(`this is it! ${singleQues}`);
+        quesSection.appendChild(singleQues);
       }
     })
     .catch((error) => console.log(error));
