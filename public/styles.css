@@ -16,3 +16,6 @@ fieldset {
 #try-again {
   display: none;
 }
+#check-answers {
+  display: none;
+}

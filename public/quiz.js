@@ -3,6 +3,7 @@
 const generate = document.getElementById("generate-game");
 const form = document.querySelector("form");
 const tryAgain = document.getElementById("try-again");
+const checkAns = document.getElementById("check-answers");
 const quesSection = document.querySelector(".question-section");
 const baseURL = "https://opentdb.com/api.php";
 
@@ -53,6 +54,7 @@ getQuiz = (gameChoice) => {
     .then((res) => {
       form.style.display = "none";
       tryAgain.style.display = "block";
+      checkAns.style.display = "block";
       quesSection.style.display = "block";
       let quizQuestions = res.data.results;
       console.log(quizQuestions);
@@ -65,11 +67,15 @@ getQuiz = (gameChoice) => {
         singleQues.innerHTML = quizQuestions[i].question;
         quesSection.appendChild(singleQues);
 
-        let answerOptions = [
-          ...quizQuestions[i].incorrect_answers,
-          quizQuestions[i].correct_answer,
-        ];
-        console.log(answerOptions);
+        let answerOptions = [...quizQuestions[i].incorrect_answers];
+
+        //ensure answer is placed randomly into answers
+        answerOptions.splice(
+          Math.floor(Math.random() * 3),
+          0,
+          quizQuestions[i].correct_answer
+        );
+        // console.log(answerOptions);
 
         let ansOptionsSection = document.createElement("div");
 
@@ -81,12 +87,13 @@ getQuiz = (gameChoice) => {
       }
     })
     .catch((error) => console.log(error));
-};
+}; //end of getQuiz function
 
 reset = () => {
   form.style.display = "block";
   quesSection.style.display = "none";
   tryAgain.style.display = "none";
+  checkAns.style.display = "none";
 };
 
 generate.addEventListener("click", getInput);
