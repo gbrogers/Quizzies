@@ -60,6 +60,7 @@ getQuiz = (gameChoice) => {
       console.log(quizQuestions);
 
       quesSection.innerHTML = "";
+      let correct = 0;
 
       for (let i = 0; i < quizQuestions.length; i++) {
         let singleQues = document.createElement("div");
@@ -75,16 +76,49 @@ getQuiz = (gameChoice) => {
           0,
           quizQuestions[i].correct_answer
         );
-        // console.log(answerOptions);
+        console.log(answerOptions);
 
         let ansOptionsSection = document.createElement("div");
 
         for (let j = 0; j < answerOptions.length; j++) {
-          ansOptionsSection.innerHTML += `<input type="radio" class="Question${i}" name="answer${i}" value="JavaScript">
+          ansOptionsSection.innerHTML += `<input type="radio" class="Question${i}" name="answer${i}" value="${
+            answerOptions[j]
+          }">
           <label for="answer${j + 1}">${answerOptions[j]}</label>`;
           singleQues.appendChild(ansOptionsSection);
         }
       }
+      checkAnswers = () => {
+        for (let m = 0; m < quizQuestions.length; m++) {
+          console.log(`answer${m}`);
+          const items = document.getElementsByName(`answer${m}`);
+          // console.log(items);
+
+          for (const item of items) {
+            if (item.checked) {
+              // console.log("found checked answer"); //gets here
+              if (item.value === quizQuestions[m].correct_answer) {
+                console.log("correct answer found");
+                document.querySelector(
+                  `.Question${m + 1}`
+                ).style.backgroundColor = "rgba(82, 243, 61, 0.479)";
+                correct++;
+              } else {
+                console.log("wrong answer found");
+                document.querySelector(
+                  `.Question${m + 1}`
+                ).style.backgroundColor = "rgba(255, 32, 32, 0.425)";
+              }
+              console.log("---------");
+            }
+          }
+        }
+        console.log(
+          `You got ${correct} out of ${quizQuestions.length} correct!`
+        );
+      };
+
+      checkAns.addEventListener("click", checkAnswers);
     })
     .catch((error) => console.log(error));
 }; //end of getQuiz function
