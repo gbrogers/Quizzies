@@ -1,0 +1,14 @@
+button {
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+}
+button:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+#next-step-container {
+  display: flex;
+}

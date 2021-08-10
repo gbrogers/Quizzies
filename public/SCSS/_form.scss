@@ -1,0 +1,18 @@
+fieldset {
+  padding: 5px 20px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  margin: 15px;
+}
+
+// .set-up {
+//   height: 50px;
+// }
+
+.question-section > div {
+  //   outline: hotpink 1px solid;
+  padding: 10px;
+}

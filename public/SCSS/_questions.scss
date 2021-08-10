@@ -1,0 +1,30 @@
+.question-section {
+  padding: 0 15px 15px;
+  div {
+    background-color: rgba(255, 105, 180, 0.685);
+    border-radius: 5px;
+    margin: 10px 0px;
+    div {
+      background-color: rgba(255, 105, 180, 0);
+      label {
+        margin-right: 12px;
+      }
+      input:hover,
+      label:hover {
+        transform: scale(1.1);
+        cursor: pointer;
+      }
+    }
+  }
+}
+.show-score {
+  margin: 20px 15px 0px 15px;
+  span {
+    color: hotpink;
+  }
+}
+
+#try-again,
+#check-answers {
+  margin: 0 0 15px 15px;
+}
