@@ -1,0 +1,92 @@
+button {
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+}
+
+button:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+#next-step-container {
+  display: flex;
+}
+
+fieldset {
+  padding: 5px 20px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  margin: 15px;
+}
+
+.question-section > div {
+  padding: 10px;
+}
+
+header h1 {
+  background-color: rgba(0, 0, 0, 0.8);
+  text-align: center;
+  padding: 30px 20px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  color: white;
+}
+
+header h1 span {
+  color: hotpink;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-size: 2.2rem;
+}
+
+.question-section {
+  padding: 0 15px 15px;
+}
+
+.question-section div {
+  background-color: rgba(255, 105, 180, 0.685);
+  border-radius: 5px;
+  margin: 10px 0px;
+}
+
+.question-section div div {
+  background-color: rgba(255, 105, 180, 0);
+}
+
+.question-section div div label {
+  margin-right: 12px;
+}
+
+.question-section div div input:hover,
+.question-section div div label:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.show-score {
+  margin: 20px 15px 0px 15px;
+}
+
+.show-score span {
+  color: hotpink;
+}
+
+#try-again,
+#check-answers {
+  margin: 0 0 15px 15px;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
+}
+
+body {
+  background-color: #ffebfd;
+  font-size: 16px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}

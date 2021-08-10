@@ -7,8 +7,6 @@ const checkAns = document.getElementById("check-answers");
 const quesSection = document.querySelector(".question-section");
 const baseURL = "https://opentdb.com/api.php";
 
-console.log("here");
-
 const getInput = (e) => {
   e.preventDefault();
   console.log("button click happened");
@@ -49,9 +47,11 @@ const getInput = (e) => {
 };
 
 getQuiz = (gameChoice) => {
+  console.log("in quiz");
   axios
     .get(`${baseURL}?${gameChoice}`)
     .then((res) => {
+      console.log("in axios");
       form.style.display = "none";
       tryAgain.style.display = "block";
       checkAns.style.display = "block";
@@ -81,14 +81,20 @@ getQuiz = (gameChoice) => {
         let ansOptionsSection = document.createElement("div");
 
         for (let j = 0; j < answerOptions.length; j++) {
-          ansOptionsSection.innerHTML += `<input type="radio" class="Question${i}" name="answer${i}" value="${
-            answerOptions[j]
-          }">
-          <label for="answer${j + 1}">${answerOptions[j]}</label>`;
+          ansOptionsSection.innerHTML += `<div class='answer-container'><input type="radio" class="Question${i}" id="option${
+            j + 1
+          }-${i}" name="answer${i}" value="${answerOptions[j]}">
+          <label for="option${j + 1}-${i}">${answerOptions[j]}</label></div>`;
           singleQues.appendChild(ansOptionsSection);
         }
       }
       checkAnswers = () => {
+        checkAns.style.display = "none";
+        // let radioBtns = document.querySelectorAll("input[type=radio]");
+
+        // for (btn in radioBtns) {
+        //   btn.setAttribute("disabled", true);
+        // }
         for (let m = 0; m < quizQuestions.length; m++) {
           console.log(`answer${m}`);
           const items = document.getElementsByName(`answer${m}`);
@@ -99,6 +105,8 @@ getQuiz = (gameChoice) => {
               // console.log("found checked answer"); //gets here
               if (item.value === quizQuestions[m].correct_answer) {
                 console.log("correct answer found");
+                // document.getElementById(`option${m + 1}`).style.color =
+                //   "rgba(82, 243, 61, 0.479)";
                 document.querySelector(
                   `.Question${m + 1}`
                 ).style.backgroundColor = "rgba(82, 243, 61, 0.479)";
@@ -107,15 +115,15 @@ getQuiz = (gameChoice) => {
                 console.log("wrong answer found");
                 document.querySelector(
                   `.Question${m + 1}`
-                ).style.backgroundColor = "rgba(255, 32, 32, 0.425)";
+                ).style.backgroundColor = "rgba(212, 3, 3, 0.425)";
               }
               console.log("---------");
             }
           }
         }
-        console.log(
-          `You got ${correct} out of ${quizQuestions.length} correct!`
-        );
+        document.querySelector(
+          ".show-score"
+        ).innerHTML = `You got <span>${correct}</span> out of <span>${quizQuestions.length}</span> correct!`;
       };
 
       checkAns.addEventListener("click", checkAnswers);
@@ -124,6 +132,7 @@ getQuiz = (gameChoice) => {
 }; //end of getQuiz function
 
 reset = () => {
+  document.querySelector(".show-score").innerHTML = "";
   form.style.display = "block";
   quesSection.style.display = "none";
   tryAgain.style.display = "none";

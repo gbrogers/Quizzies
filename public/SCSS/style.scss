@@ -1,0 +1,18 @@
+@import "config";
+@import "buttons";
+@import "form";
+@import "full-screen";
+@import "header";
+@import "questions";
+
+* {
+  box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
+}
+
+body {
+  background-color: $primary-color;
+  font-size: 16px;
+  font-family: $main-font;
+}
