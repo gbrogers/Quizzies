@@ -1,24 +1,47 @@
 .question-section {
   padding: 0 15px 15px;
   div {
-    background-color: rgba(255, 105, 180, 0.685);
+    background-color: rgba(255, 145, 200, 0.685);
     border-radius: 5px;
     margin: 10px 0px;
+    h3 {
+      font-weight: 550;
+      font-size: 1.2rem;
+      line-height: 1.3rem;
+    }
     div {
       background-color: rgba(255, 105, 180, 0);
-      label {
-        margin-right: 12px;
+      margin-top: 10px;
+      div {
+        height: 20px;
+        display: flex;
+        align-items: center;
+        padding: 5px;
       }
-      input:hover,
-      label:hover {
+      label {
+        margin-left: 12px;
+      }
+      input:hover {
         transform: scale(1.1);
+        cursor: pointer;
+      }
+      label:hover {
         cursor: pointer;
       }
     }
   }
 }
+div:first-child {
+  margin-top: 0px;
+}
+div:last-child {
+  margin-bottom: 0px;
+}
+
 .show-score {
-  margin: 20px 15px 0px 15px;
+  //   margin: 20px 15px 0px 15px;
+  margin-left: 15px;
+  margin-bottom: 15px;
   span {
     color: hotpink;
   }

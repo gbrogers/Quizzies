@@ -63,7 +63,7 @@ getQuiz = (gameChoice) => {
       for (let i = 0; i < quizQuestions.length; i++) {
         let singleQues = document.createElement("div");
         singleQues.className = `Question${i + 1}`;
-        singleQues.innerHTML = quizQuestions[i].question;
+        singleQues.innerHTML = `<h3>${quizQuestions[i].question}</h3>`;
         quesSection.appendChild(singleQues);
 
         let answerOptions = [...quizQuestions[i].incorrect_answers];
@@ -79,7 +79,9 @@ getQuiz = (gameChoice) => {
         let ansOptionsSection = document.createElement("div");
 
         for (let j = 0; j < answerOptions.length; j++) {
-          ansOptionsSection.innerHTML += `<div class='answer-container'><input type="radio" class="Question${i}" id="option${
+          ansOptionsSection.innerHTML += `<div class='answer-container' id="option${
+            j + 1
+          }-${i}-container"><input type="radio" class="Question${i}" id="option${
             j + 1
           }-${i}" name="answer${i}" value="${answerOptions[j]}">
           <label for="option${j + 1}-${i}">${answerOptions[j]}</label></div>`;
@@ -88,40 +90,40 @@ getQuiz = (gameChoice) => {
       }
       checkAnswers = () => {
         checkAns.style.display = "none";
-<<<<<<< HEAD
         for (let m = 0; m < quizQuestions.length; m++) {
-          console.log(`answer${m}`);
+          // console.log(`answer${m}`);
           const items = document.getElementsByName(`answer${m}`);
 
           for (const item of items) {
             if (item.checked) {
               if (item.value === quizQuestions[m].correct_answer) {
-                console.log("correct answer found");
-=======
-        // let radioBtns = document.querySelectorAll("input[type=radio]");
-
-        // for (btn in radioBtns) {
-        //   btn.setAttribute("disabled", true);
-        // }
-        for (let m = 0; m < quizQuestions.length; m++) {
-          console.log(`answer${m}`);
-          const items = document.getElementsByName(`answer${m}`);
-          // console.log(items);
-
-          for (const item of items) {
-            if (item.checked) {
-              // console.log("found checked answer"); //gets here
-              if (item.value === quizQuestions[m].correct_answer) {
-                console.log("correct answer found");
-                // document.getElementById(`option${m + 1}`).style.color =
-                //   "rgba(82, 243, 61, 0.479)";
->>>>>>> 8be2489bf0f71529bec23dc036fe3ff9a1af24ad
+                // console.log("correct answer found");
                 document.querySelector(
                   `.Question${m + 1}`
                 ).style.backgroundColor = "rgba(82, 243, 61, 0.479)";
                 correct++;
               } else {
-                console.log("wrong answer found");
+                // console.log("wrong answer found");
+                // console.log(
+                //   document.querySelector(
+                //     `input[value = "${quizQuestions[m].correct_answer}"]`
+                //   )
+                // );
+
+                let inputSpot = document.querySelector(
+                  `input[value = "${quizQuestions[m].correct_answer}"]`
+                ).id;
+
+                document.getElementById(
+                  `${inputSpot}-container`
+                ).style.backgroundColor = "yellow";
+
+                // console.log(`${inputSpot}-container`);
+                // console.log(`input selector ${inputSpot}`);
+                // console.log(
+                //   "using id" + document.querySelector(`for="${inputSpot}"`)
+                // );
+
                 document.querySelector(
                   `.Question${m + 1}`
                 ).style.backgroundColor = "rgba(212, 3, 3, 0.425)";
@@ -130,9 +132,12 @@ getQuiz = (gameChoice) => {
             }
           }
         }
-        document.querySelector(
-          ".show-score"
-        ).innerHTML = `You got <span>${correct}</span> out of <span>${quizQuestions.length}</span> correct!`;
+        let showAns = document.querySelectorAll(".show-score");
+        for (let spot in showAns) {
+          showAns[
+            spot
+          ].innerHTML = `You got <span>${correct}</span> out of <span>${quizQuestions.length}</span> correct!`;
+        }
       };
 
       checkAns.addEventListener("click", checkAnswers);
@@ -141,7 +146,10 @@ getQuiz = (gameChoice) => {
 }; //end of getQuiz function
 
 reset = () => {
-  document.querySelector(".show-score").innerHTML = "";
+  let showAns = document.querySelectorAll(".show-score");
+  for (let spot in showAns) {
+    showAns[spot].innerHTML = "";
+  }
   form.style.display = "block";
   quesSection.style.display = "none";
   tryAgain.style.display = "none";
