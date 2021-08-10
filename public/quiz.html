@@ -4,19 +4,19 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./SCSS/style.css" />
     <title>Quizzies</title>
   </head>
   <body>
     <header>
-      <nav>
+      <!-- <nav>
         <ul>
           <li><a href="./index.html">Home</a></li>
           <li><a href="./quiz.html">Quizzies</a></li>
           <li><a href="./suduko.html">Suduko</a></li>
         </ul>
-      </nav>
-      <h1>Welcome to Quizzies!</h1>
+      </nav> -->
+      <h1>Welcome to <span>Quizzies!</span></h1>
     </header>
     <form>
       <fieldset>
@@ -72,14 +72,14 @@
             <option class="question-num" value="30">30</option>
           </select>
         </div>
-        <button id="generate-game">Let's Do This!</button>
+        <button id="generate-game">Generate Quiz</button>
       </fieldset>
     </form>
-
-    <section class="question-section">
-      <div>
-        
-      </div>
+    <h2 class="show-score"></h2>
+    <section class="question-section"></section>
+    <div id="next-step-container">
+      <button id="check-answers" style="display: none">Check Answers</button>
+      <button id="try-again" style="display: none">Try Again</button>
     </div>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="./quiz.js"></script>

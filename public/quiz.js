@@ -88,6 +88,7 @@ getQuiz = (gameChoice) => {
       }
       checkAnswers = () => {
         checkAns.style.display = "none";
+<<<<<<< HEAD
         for (let m = 0; m < quizQuestions.length; m++) {
           console.log(`answer${m}`);
           const items = document.getElementsByName(`answer${m}`);
@@ -96,6 +97,25 @@ getQuiz = (gameChoice) => {
             if (item.checked) {
               if (item.value === quizQuestions[m].correct_answer) {
                 console.log("correct answer found");
+=======
+        // let radioBtns = document.querySelectorAll("input[type=radio]");
+
+        // for (btn in radioBtns) {
+        //   btn.setAttribute("disabled", true);
+        // }
+        for (let m = 0; m < quizQuestions.length; m++) {
+          console.log(`answer${m}`);
+          const items = document.getElementsByName(`answer${m}`);
+          // console.log(items);
+
+          for (const item of items) {
+            if (item.checked) {
+              // console.log("found checked answer"); //gets here
+              if (item.value === quizQuestions[m].correct_answer) {
+                console.log("correct answer found");
+                // document.getElementById(`option${m + 1}`).style.color =
+                //   "rgba(82, 243, 61, 0.479)";
+>>>>>>> 8be2489bf0f71529bec23dc036fe3ff9a1af24ad
                 document.querySelector(
                   `.Question${m + 1}`
                 ).style.backgroundColor = "rgba(82, 243, 61, 0.479)";
