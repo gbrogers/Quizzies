@@ -7,7 +7,7 @@ const baseURL = "https://opentdb.com/api.php";
 
 const getInput = (e) => {
   e.preventDefault();
-  console.log("button click happened");
+  // console.log("button click happened");
 
   let category = "";
   const cat = document.querySelectorAll(".category");
@@ -45,7 +45,7 @@ const getInput = (e) => {
 };
 
 getQuiz = (gameChoice) => {
-  console.log("in quiz");
+  // console.log("in quiz");
   axios
     .get(`${baseURL}?${gameChoice}`)
     .then((res) => {
@@ -57,12 +57,12 @@ getQuiz = (gameChoice) => {
       let quizQuestions = "";
       let singleQues = "";
       let answerOptions = [];
-      let correct = 0;
+      let numCorrect = 0;
       quesSection.innerHTML = "";
       let ansOptionsSection = "";
 
       quizQuestions = res.data.results;
-      console.log(quizQuestions);
+      // console.log(quizQuestions);
 
       for (let i = 0; i < quizQuestions.length; i++) {
         singleQues = document.createElement("div");
@@ -78,7 +78,7 @@ getQuiz = (gameChoice) => {
           0,
           quizQuestions[i].correct_answer
         );
-        console.log(answerOptions);
+        // console.log(answerOptions);
 
         ansOptionsSection = document.createElement("div");
 
@@ -97,50 +97,42 @@ getQuiz = (gameChoice) => {
         for (let m = 0; m < quizQuestions.length; m++) {
           // console.log(`answer${m}`);
           const items = document.getElementsByName(`answer${m}`);
+          const question = document.querySelector(`.Question${m + 1}`);
+          let correct = quizQuestions[m].correct_answer;
+          const inputSpot = document.querySelector(
+            `input[value = "${correct}"][class="Question${m}"]` //this is the error!!!!!
+          );
 
           for (const item of items) {
             if (item.checked) {
-              // console.log(typeof item.value);
-              // console.log(typeof quizQuestions[m].correct_answer);
-              document.querySelector(
-                `.Question${m + 1}`
-              ).style.backgroundColor = "";
-              if (item.value === quizQuestions[m].correct_answer) {
+              // question.style.backgroundColor = "";
+              // console.log(quizQuestions[m].question);
+              // console.log(`item value ${item.value}`);
+              // console.log(`correct ${correct}`);
+              if (item.value === correct) {
                 // console.log("correct answer found");
-                document.querySelector(
-                  `.Question${m + 1}`
-                ).style.backgroundColor = "rgba(82, 243, 61, 0.479)";
-                correct++;
+                question.style.backgroundColor = "rgba(82, 243, 61, 0.479)";
+                numCorrect++;
               } else {
-                console.log("wrong answer found");
-                console.log(quizQuestions[m].question);
+                // console.log("wrong answer found");
 
-                console.log(quizQuestions[m].correct_answer);
-                if (
-                  document.querySelector(
-                    `input[value = "${quizQuestions[m].correct_answer}"]`
-                  ) !== null
-                ) {
-                  console.log("not null");
-                  let inputSpot = "";
-                  inputSpot = document.querySelector(
-                    `input[value = "${quizQuestions[m].correct_answer}"]`
-                  ).id;
-                  console.log(`${inputSpot}-container`);
-                  console.log(
-                    document.getElementById(`${inputSpot}-container`)
+                // console.log(inputSpot);
+                if (inputSpot !== null) {
+                  let inputSpotId = inputSpot.id;
+                  const correctContainer = document.getElementById(
+                    `${inputSpotId}-container`
                   );
-                  console.log(inputSpot);
-                  document.getElementById(
-                    `${inputSpot}-container`
-                  ).style.backgroundColor = "yellow";
+                  // console.log(`${inputSpotId}-container`);
+                  // console.log(correctContainer);
+                  // console.log(inputSpotId);
+                  correctContainer.style.backgroundColor = "yellow";
+                } else {
+                  // console.log("no luck");
                 }
 
-                document.querySelector(
-                  `.Question${m + 1}`
-                ).style.backgroundColor = "rgba(212, 3, 3, 0.425)";
+                question.style.backgroundColor = "rgba(212, 3, 3, 0.425)";
               }
-              console.log("---------");
+              // console.log("---------");
             }
           }
         }
@@ -148,7 +140,7 @@ getQuiz = (gameChoice) => {
         for (let spot in showAns) {
           showAns[
             spot
-          ].innerHTML = `You got <span>${correct}</span> out of <span>${quizQuestions.length}</span> correct!`;
+          ].innerHTML = `You got <span>${numCorrect}</span> out of <span>${quizQuestions.length}</span> correct!`;
         }
       };
 
@@ -158,18 +150,16 @@ getQuiz = (gameChoice) => {
 }; //end of getQuiz function
 
 reset = () => {
-  let showAns = document.querySelectorAll(".show-score");
-  for (let spot in showAns) {
-    showAns[spot].innerHTML = "";
-  }
-  form.style.display = "block";
-  quesSection.style.display = "none";
-  tryAgain.style.display = "none";
-  checkAns.style.display = "none";
-  // let ansContainers = document.getElementsByClassName("answer-containers");
-  // for (let container in ansContainers) {
-  //   container.style.backgroundColor = "";
+  // let showAns = document.querySelectorAll(".show-score");
+  // for (let spot in showAns) {
+  //   showAns[spot].innerHTML = "";
   // }
+  // form.style.display = "block";
+  // quesSection.style.display = "none";
+  // tryAgain.style.display = "none";
+  // checkAns.style.display = "none";
+
+  location.reload();
 };
 
 generate.addEventListener("click", getInput);

@@ -1,6 +1,6 @@
 # Quizzies
 
-//need to adjust so that all questions display at once (add loop to append child vs change div innerHTML)
-
-// highlight correct answers
-// allow for clicking word instead of radio btn
+//highlight doesn't work on matching answers with symbols bc not in html
+//add attribute to api
+//find new font
+//alter for desktop view
