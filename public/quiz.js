@@ -97,48 +97,37 @@ getQuiz = (gameChoice) => {
         for (let m = 0; m < quizQuestions.length; m++) {
           // console.log(`answer${m}`);
           const items = document.getElementsByName(`answer${m}`);
+          const question = document.querySelector(`.Question${m + 1}`);
+
+          let correct = quizQuestions[m].correct_answer;
+          const inputSpot = document.querySelector(
+            `input[value = "${correct}"]`
+          );
 
           for (const item of items) {
             if (item.checked) {
-              // console.log(typeof item.value);
-              // console.log(typeof quizQuestions[m].correct_answer);
-              document.querySelector(
-                `.Question${m + 1}`
-              ).style.backgroundColor = "";
-              if (item.value === quizQuestions[m].correct_answer) {
+              question.style.backgroundColor = "";
+              if (item.value === correct) {
                 // console.log("correct answer found");
-                document.querySelector(
-                  `.Question${m + 1}`
-                ).style.backgroundColor = "rgba(82, 243, 61, 0.479)";
+                question.style.backgroundColor = "rgba(82, 243, 61, 0.479)";
                 correct++;
               } else {
                 console.log("wrong answer found");
                 console.log(quizQuestions[m].question);
 
-                console.log(quizQuestions[m].correct_answer);
-                if (
-                  document.querySelector(
-                    `input[value = "${quizQuestions[m].correct_answer}"]`
-                  ) !== null
-                ) {
-                  console.log("not null");
-                  let inputSpot = "";
-                  inputSpot = document.querySelector(
-                    `input[value = "${quizQuestions[m].correct_answer}"]`
-                  ).id;
-                  console.log(`${inputSpot}-container`);
-                  console.log(
-                    document.getElementById(`${inputSpot}-container`)
+                console.log(correct);
+                if (inputSpot !== null) {
+                  let inputSpotId = inputSpot.id;
+                  const correctContainer = document.getElementById(
+                    `${inputSpotId}-container`
                   );
-                  console.log(inputSpot);
-                  document.getElementById(
-                    `${inputSpot}-container`
-                  ).style.backgroundColor = "yellow";
+                  console.log(`${inputSpot}-container`);
+                  console.log(correctContainer);
+                  console.log(inputSpotId);
+                  correctContainer.style.backgroundColor = "yellow";
                 }
 
-                document.querySelector(
-                  `.Question${m + 1}`
-                ).style.backgroundColor = "rgba(212, 3, 3, 0.425)";
+                question.style.backgroundColor = "rgba(212, 3, 3, 0.425)";
               }
               console.log("---------");
             }
@@ -166,10 +155,6 @@ reset = () => {
   quesSection.style.display = "none";
   tryAgain.style.display = "none";
   checkAns.style.display = "none";
-  // let ansContainers = document.getElementsByClassName("answer-containers");
-  // for (let container in ansContainers) {
-  //   container.style.backgroundColor = "";
-  // }
 };
 
 generate.addEventListener("click", getInput);
