@@ -7,7 +7,7 @@ const baseURL = "https://opentdb.com/api.php";
 
 const getInput = (e) => {
   e.preventDefault();
-  console.log("button click happened");
+  // console.log("button click happened");
 
   let category = "";
   const cat = document.querySelectorAll(".category");
@@ -45,7 +45,7 @@ const getInput = (e) => {
 };
 
 getQuiz = (gameChoice) => {
-  console.log("in quiz");
+  // console.log("in quiz");
   axios
     .get(`${baseURL}?${gameChoice}`)
     .then((res) => {
@@ -62,7 +62,7 @@ getQuiz = (gameChoice) => {
       let ansOptionsSection = "";
 
       quizQuestions = res.data.results;
-      console.log(quizQuestions);
+      // console.log(quizQuestions);
 
       for (let i = 0; i < quizQuestions.length; i++) {
         singleQues = document.createElement("div");
@@ -78,7 +78,7 @@ getQuiz = (gameChoice) => {
           0,
           quizQuestions[i].correct_answer
         );
-        console.log(answerOptions);
+        // console.log(answerOptions);
 
         ansOptionsSection = document.createElement("div");
 
@@ -100,35 +100,39 @@ getQuiz = (gameChoice) => {
           const question = document.querySelector(`.Question${m + 1}`);
           let correct = quizQuestions[m].correct_answer;
           const inputSpot = document.querySelector(
-            `input[value = "${correct}"]`
+            `input[value = "${correct}"][class="Question${m}"]` //this is the error!!!!!
           );
 
           for (const item of items) {
             if (item.checked) {
-              question.style.backgroundColor = "";
+              // question.style.backgroundColor = "";
+              // console.log(quizQuestions[m].question);
+              // console.log(`item value ${item.value}`);
+              // console.log(`correct ${correct}`);
               if (item.value === correct) {
                 // console.log("correct answer found");
                 question.style.backgroundColor = "rgba(82, 243, 61, 0.479)";
                 numCorrect++;
               } else {
-                console.log("wrong answer found");
-                console.log(quizQuestions[m].question);
+                // console.log("wrong answer found");
 
-                console.log(correct);
+                // console.log(inputSpot);
                 if (inputSpot !== null) {
                   let inputSpotId = inputSpot.id;
                   const correctContainer = document.getElementById(
                     `${inputSpotId}-container`
                   );
-                  console.log(`${inputSpot}-container`);
-                  console.log(correctContainer);
-                  console.log(inputSpotId);
+                  // console.log(`${inputSpotId}-container`);
+                  // console.log(correctContainer);
+                  // console.log(inputSpotId);
                   correctContainer.style.backgroundColor = "yellow";
+                } else {
+                  // console.log("no luck");
                 }
 
                 question.style.backgroundColor = "rgba(212, 3, 3, 0.425)";
               }
-              console.log("---------");
+              // console.log("---------");
             }
           }
         }
@@ -146,14 +150,16 @@ getQuiz = (gameChoice) => {
 }; //end of getQuiz function
 
 reset = () => {
-  let showAns = document.querySelectorAll(".show-score");
-  for (let spot in showAns) {
-    showAns[spot].innerHTML = "";
-  }
-  form.style.display = "block";
-  quesSection.style.display = "none";
-  tryAgain.style.display = "none";
-  checkAns.style.display = "none";
+  // let showAns = document.querySelectorAll(".show-score");
+  // for (let spot in showAns) {
+  //   showAns[spot].innerHTML = "";
+  // }
+  // form.style.display = "block";
+  // quesSection.style.display = "none";
+  // tryAgain.style.display = "none";
+  // checkAns.style.display = "none";
+
+  location.reload();
 };
 
 generate.addEventListener("click", getInput);
