@@ -7,7 +7,6 @@ const baseURL = "https://opentdb.com/api.php";
 
 const getInput = (e) => {
   e.preventDefault();
-  // console.log("button click happened");
 
   let category = "";
   const cat = document.querySelectorAll(".category");
@@ -45,7 +44,6 @@ const getInput = (e) => {
 };
 
 getQuiz = (gameChoice) => {
-  // console.log("in quiz");
   axios
     .get(`${baseURL}?${gameChoice}`)
     .then((res) => {
@@ -54,85 +52,63 @@ getQuiz = (gameChoice) => {
       checkAns.style.display = "block";
       quesSection.style.display = "block";
 
-      let quizQuestions = "";
-      let singleQues = "";
-      let answerOptions = [];
+      let quizQuestions = res.data.results;
       let numCorrect = 0;
-      quesSection.innerHTML = "";
-      let ansOptionsSection = "";
-
-      quizQuestions = res.data.results;
-      // console.log(quizQuestions);
+      console.log(quizQuestions);
 
       for (let i = 0; i < quizQuestions.length; i++) {
-        singleQues = document.createElement("div");
+        let ansOptionsSection = document.createElement("div");
+        let singleQues = document.createElement("div");
         singleQues.className = `Question${i + 1}`;
         singleQues.innerHTML = `<h3>${quizQuestions[i].question}</h3>`;
         quesSection.appendChild(singleQues);
 
-        answerOptions = [...quizQuestions[i].incorrect_answers];
+        let correctAns = quizQuestions[i].correct_answer;
+        let answerOptions = [...quizQuestions[i].incorrect_answers];
 
-        //ensure answer is placed randomly into answers
-        answerOptions.splice(
-          Math.floor(Math.random() * 3),
-          0,
-          quizQuestions[i].correct_answer
-        );
-        // console.log(answerOptions);
-
-        ansOptionsSection = document.createElement("div");
+        answerOptions.splice(Math.floor(Math.random() * 3), 0, correctAns);
 
         for (let j = 0; j < answerOptions.length; j++) {
-          ansOptionsSection.innerHTML += `<div class='answer-container' id="option${
+          let ansHTML = `<div class='answer-container' id="option${
             j + 1
-          }-${i}-container"><input type="radio" class="Question${i}" id="option${
+          }-${i}-container">
+          <input type="radio" class="Question${i}" id="option${
             j + 1
           }-${i}" name="answer${i}" value="${answerOptions[j]}">
           <label for="option${j + 1}-${i}">${answerOptions[j]}</label></div>`;
+
+          ansOptionsSection.innerHTML += ansHTML;
           singleQues.appendChild(ansOptionsSection);
         }
       }
       checkAnswers = () => {
         checkAns.style.display = "none";
         for (let m = 0; m < quizQuestions.length; m++) {
-          // console.log(`answer${m}`);
+          let correct = quizQuestions[m].correct_answer;
           const items = document.getElementsByName(`answer${m}`);
           const question = document.querySelector(`.Question${m + 1}`);
-          let correct = quizQuestions[m].correct_answer;
           const inputSpot = document.querySelector(
-            `input[value = "${correct}"][class="Question${m}"]` //this is the error!!!!!
+            `input[value = "${correct}"][class="Question${m}"]`
           );
 
           for (const item of items) {
             if (item.checked) {
-              // question.style.backgroundColor = "";
-              // console.log(quizQuestions[m].question);
-              // console.log(`item value ${item.value}`);
-              // console.log(`correct ${correct}`);
+              console.log(quizQuestions[m].question);
+              console.log(`correct ${correct}`);
               if (item.value === correct) {
-                // console.log("correct answer found");
                 question.style.backgroundColor = "rgba(82, 243, 61, 0.479)";
                 numCorrect++;
               } else {
-                // console.log("wrong answer found");
-
-                // console.log(inputSpot);
                 if (inputSpot !== null) {
                   let inputSpotId = inputSpot.id;
                   const correctContainer = document.getElementById(
                     `${inputSpotId}-container`
                   );
-                  // console.log(`${inputSpotId}-container`);
-                  // console.log(correctContainer);
-                  // console.log(inputSpotId);
                   correctContainer.style.backgroundColor = "yellow";
-                } else {
-                  // console.log("no luck");
                 }
-
                 question.style.backgroundColor = "rgba(212, 3, 3, 0.425)";
               }
-              // console.log("---------");
+              console.log("---------");
             }
           }
         }
@@ -142,7 +118,7 @@ getQuiz = (gameChoice) => {
             spot
           ].innerHTML = `You got <span>${numCorrect}</span> out of <span>${quizQuestions.length}</span> correct!`;
         }
-      };
+      }; // end of checkAnswers
 
       checkAns.addEventListener("click", checkAnswers);
     })
