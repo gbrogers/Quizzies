@@ -57,7 +57,7 @@ getQuiz = (gameChoice) => {
       let quizQuestions = "";
       let singleQues = "";
       let answerOptions = [];
-      let correct = 0;
+      let numCorrect = 0;
       quesSection.innerHTML = "";
       let ansOptionsSection = "";
 
@@ -98,7 +98,6 @@ getQuiz = (gameChoice) => {
           // console.log(`answer${m}`);
           const items = document.getElementsByName(`answer${m}`);
           const question = document.querySelector(`.Question${m + 1}`);
-
           let correct = quizQuestions[m].correct_answer;
           const inputSpot = document.querySelector(
             `input[value = "${correct}"]`
@@ -110,7 +109,7 @@ getQuiz = (gameChoice) => {
               if (item.value === correct) {
                 // console.log("correct answer found");
                 question.style.backgroundColor = "rgba(82, 243, 61, 0.479)";
-                correct++;
+                numCorrect++;
               } else {
                 console.log("wrong answer found");
                 console.log(quizQuestions[m].question);
@@ -137,7 +136,7 @@ getQuiz = (gameChoice) => {
         for (let spot in showAns) {
           showAns[
             spot
-          ].innerHTML = `You got <span>${correct}</span> out of <span>${quizQuestions.length}</span> correct!`;
+          ].innerHTML = `You got <span>${numCorrect}</span> out of <span>${quizQuestions.length}</span> correct!`;
         }
       };
 
