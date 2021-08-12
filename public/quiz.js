@@ -1,9 +1,12 @@
+// import { checkAnswers } from "./checkAnswers.js";
+
 const generate = document.getElementById("generate-game");
 const form = document.querySelector("form");
 const tryAgain = document.getElementById("try-again");
 const checkAns = document.getElementById("check-answers");
 const quesSection = document.querySelector(".question-section");
 const showAns = document.querySelectorAll(".show-score");
+
 const baseURL = "https://opentdb.com/api.php";
 
 const getInput = (e) => {
@@ -45,7 +48,7 @@ const getInput = (e) => {
   getQuiz(gameChoice);
 };
 
-getQuiz = (gameChoice) => {
+const getQuiz = (gameChoice) => {
   axios
     .get(`${baseURL}?${gameChoice}`)
     .then((res) => {
@@ -54,24 +57,22 @@ getQuiz = (gameChoice) => {
       checkAns.style.display = "block";
       quesSection.style.display = "block";
 
-      let numCorrect = 0;
-
-      quizQuestions = res.data.results;
+      let quizQuestions = res.data.results;
       console.log(quizQuestions);
-
+      // display questions - turn this into seperate function
       for (let i = 0; i < quizQuestions.length; i++) {
-        singleQues = document.createElement("div");
+        let singleQues = document.createElement("div");
         singleQues.className = `Question${i + 1}`;
         singleQues.innerHTML = `<h3>${quizQuestions[i].question}</h3>`;
         quesSection.appendChild(singleQues);
         let correctAns = quizQuestions[i].correct_answer;
 
-        answerOptions = [...quizQuestions[i].incorrect_answers];
+        let answerOptions = [...quizQuestions[i].incorrect_answers];
 
         answerOptions.splice(Math.floor(Math.random() * 3), 0, correctAns);
 
-        ansOptionsSection = document.createElement("div");
-
+        let ansOptionsSection = document.createElement("div");
+        //display answer options
         for (let j = 0; j < answerOptions.length; j++) {
           const ansHTML = `<div class='answer-container' id="option${
             j + 1
@@ -83,12 +84,17 @@ getQuiz = (gameChoice) => {
           singleQues.appendChild(ansOptionsSection);
         }
       }
-      checkAnswers = () => {
+      const checkAnswers = () => {
         checkAns.style.display = "none";
+        let numCorrect = 0;
         for (let m = 0; m < quizQuestions.length; m++) {
           const items = document.getElementsByName(`answer${m}`);
           const question = document.querySelector(`.Question${m + 1}`);
-          let correct = quizQuestions[m].correct_answer;
+          let hiddenAnsDiv = document.createElement("div");
+          hiddenAnsDiv.innerHTML = `${quizQuestions[m].correct_answer}`;
+
+          let correct = hiddenAnsDiv.innerHTML;
+          console.log(correct);
           const inputSpot = document.querySelector(
             `input[value = "${correct}"][class="Question${m}"]`
           );
@@ -98,22 +104,32 @@ getQuiz = (gameChoice) => {
 
           for (const item of items) {
             if (item.checked) {
+              const wrongAns = document.querySelector(
+                `input[value = "${item.value}"][class="Question${m}"]`
+              );
+
+              let wrongSpotId = wrongAns.id;
+              const wrongContainer = document.getElementById(
+                `${wrongSpotId}-container`
+              );
+
               if (item.value === correct) {
                 console.log("correct answer found");
-                question.style.backgroundColor = "rgba(82, 243, 61, 0.479)";
+                question.style.border = "3px solid #A9E9B3";
                 numCorrect++;
               } else {
+                wrongContainer.style.color = "rgb(212, 3, 3)";
                 console.log("wrong answer found");
-                if (inputSpot !== null) {
-                  let inputSpotId = inputSpot.id;
-                  const correctContainer = document.getElementById(
-                    `${inputSpotId}-container`
-                  );
-                  correctContainer.style.backgroundColor = "yellow";
-                }
-                question.style.backgroundColor = "rgba(212, 3, 3, 0.425)";
+                question.style.border = "3px solid #F2A2A2";
+                let inputSpotId = inputSpot.id;
+                const correctContainer = document.getElementById(
+                  `${inputSpotId}-container`
+                );
+                correctContainer.style.border = "2px #A9E9B3 solid";
+                correctContainer.style.padding = "13px 7px 13px 4px";
+
+                console.log("---------");
               }
-              console.log("---------");
             }
           }
         }
@@ -128,7 +144,7 @@ getQuiz = (gameChoice) => {
     .catch((error) => console.log(error));
 }; //end of getQuiz function
 
-reset = () => {
+const reset = () => {
   // let showAns = document.querySelectorAll(".show-score");
   // for (let spot in showAns) {
   //   showAns[spot].innerHTML = "";
