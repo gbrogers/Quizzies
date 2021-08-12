@@ -1,5 +1,3 @@
-// import { checkAnswers } from "./checkAnswers.js";
-
 const generate = document.getElementById("generate-game");
 const form = document.querySelector("form");
 const tryAgain = document.getElementById("try-again");
@@ -58,8 +56,7 @@ const getQuiz = (gameChoice) => {
 
       let quizQuestions = res.data.results;
 
-      console.log(quizQuestions);
-      // display questions - turn this into seperate function
+      // display questions
       for (let i = 0; i < quizQuestions.length; i++) {
         let ansOptionsSection = document.createElement("div");
         let singleQues = document.createElement("div");
@@ -71,7 +68,6 @@ const getQuiz = (gameChoice) => {
 
         answerOptions.splice(Math.floor(Math.random() * 3), 0, correctAns);
 
-        let ansOptionsSection = document.createElement("div");
         //display answer options
         for (let j = 0; j < answerOptions.length; j++) {
           const ansHTML = `<div class='answer-container' id="option${
@@ -88,6 +84,7 @@ const getQuiz = (gameChoice) => {
       const checkAnswers = () => {
         checkAns.style.display = "none";
         let numCorrect = 0;
+        //loop through each question
         for (let m = 0; m < quizQuestions.length; m++) {
           const items = document.getElementsByName(`answer${m}`);
           const question = document.querySelector(`.Question${m + 1}`);
@@ -95,14 +92,10 @@ const getQuiz = (gameChoice) => {
           hiddenAnsDiv.innerHTML = `${quizQuestions[m].correct_answer}`;
 
           let correct = hiddenAnsDiv.innerHTML;
-          console.log(correct);
           const inputSpot = document.querySelector(
             `input[value = "${correct}"][class="Question${m}"]`
           );
-
-          console.log(quizQuestions[m].question);
-          console.log(`correct ans: ${correct}`);
-
+          // check if selected answer option is correct and display answers
           for (const item of items) {
             if (item.checked) {
               const wrongAns = document.querySelector(
@@ -115,12 +108,10 @@ const getQuiz = (gameChoice) => {
               );
 
               if (item.value === correct) {
-                console.log("correct answer found");
                 question.style.border = "3px solid #A9E9B3";
                 numCorrect++;
               } else {
                 wrongContainer.style.color = "rgb(212, 3, 3)";
-                console.log("wrong answer found");
                 question.style.border = "3px solid #F2A2A2";
                 let inputSpotId = inputSpot.id;
                 const correctContainer = document.getElementById(
@@ -128,8 +119,6 @@ const getQuiz = (gameChoice) => {
                 );
                 correctContainer.style.border = "2px #A9E9B3 solid";
                 correctContainer.style.padding = "13px 7px 13px 4px";
-
-                console.log("---------");
               }
             }
           }
@@ -158,7 +147,6 @@ const reset = () => {
   // for (let container in ansContainers) {
   //   container.style.backgroundColor = "";
   // }
-
 
   location.reload();
 };
