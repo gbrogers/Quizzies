@@ -11,7 +11,6 @@ const baseURL = "https://opentdb.com/api.php";
 
 const getInput = (e) => {
   e.preventDefault();
-  console.log("button click happened");
 
   let category = "";
   const cat = document.querySelectorAll(".category");
@@ -58,15 +57,16 @@ const getQuiz = (gameChoice) => {
       quesSection.style.display = "block";
 
       let quizQuestions = res.data.results;
+
       console.log(quizQuestions);
       // display questions - turn this into seperate function
       for (let i = 0; i < quizQuestions.length; i++) {
+        let ansOptionsSection = document.createElement("div");
         let singleQues = document.createElement("div");
         singleQues.className = `Question${i + 1}`;
         singleQues.innerHTML = `<h3>${quizQuestions[i].question}</h3>`;
         quesSection.appendChild(singleQues);
         let correctAns = quizQuestions[i].correct_answer;
-
         let answerOptions = [...quizQuestions[i].incorrect_answers];
 
         answerOptions.splice(Math.floor(Math.random() * 3), 0, correctAns);
@@ -76,7 +76,8 @@ const getQuiz = (gameChoice) => {
         for (let j = 0; j < answerOptions.length; j++) {
           const ansHTML = `<div class='answer-container' id="option${
             j + 1
-          }-${i}-container"><input type="radio" class="Question${i}" id="option${
+          }-${i}-container">
+          <input type="radio" class="Question${i}" id="option${
             j + 1
           }-${i}" name="answer${i}" value="${answerOptions[j]}">
           <label for="option${j + 1}-${i}">${answerOptions[j]}</label></div>`;
@@ -157,6 +158,7 @@ const reset = () => {
   // for (let container in ansContainers) {
   //   container.style.backgroundColor = "";
   // }
+
 
   location.reload();
 };
