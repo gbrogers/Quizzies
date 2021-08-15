@@ -86,6 +86,9 @@ const getQuiz = (gameChoice) => {
         let numCorrect = 0;
         //loop through each question
         for (let m = 0; m < quizQuestions.length; m++) {
+          console.log(quizQuestions[m].question);
+          console.log(quizQuestions[m].correct_answer);
+
           const items = document.getElementsByName(`answer${m}`);
           const question = document.querySelector(`.Question${m + 1}`);
           let hiddenAnsDiv = document.createElement("div");
@@ -108,17 +111,21 @@ const getQuiz = (gameChoice) => {
               );
 
               if (item.value === correct) {
+                console.log("correct found");
                 question.style.border = "3px solid #A9E9B3";
                 numCorrect++;
               } else {
+                console.log("wrong found");
                 wrongContainer.style.color = "rgb(212, 3, 3)";
                 question.style.border = "3px solid #F2A2A2";
-                let inputSpotId = inputSpot.id;
-                const correctContainer = document.getElementById(
-                  `${inputSpotId}-container`
-                );
-                correctContainer.style.border = "2px #A9E9B3 solid";
-                correctContainer.style.padding = "13px 7px 13px 4px";
+                if (inputSpot !== null) {
+                  let inputSpotId = inputSpot.id;
+                  const correctContainer = document.getElementById(
+                    `${inputSpotId}-container`
+                  );
+                  correctContainer.style.border = "2px #A9E9B3 solid";
+                  correctContainer.style.padding = "13px 7px 13px 4px";
+                }
               }
             }
           }
