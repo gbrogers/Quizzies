@@ -84,17 +84,22 @@ const getQuiz = (gameChoice) => {
       const checkAnswers = () => {
         checkAns.style.display = "none";
         let numCorrect = 0;
+        let numGraded = 0;
         //loop through each question
         for (let m = 0; m < quizQuestions.length; m++) {
+          numGraded++;
           console.log(quizQuestions[m].question);
           console.log(quizQuestions[m].correct_answer);
+          let hiddenAnsDiv = document.createElement("div");
+          hiddenAnsDiv.innerHTML = `${quizQuestions[m].correct_answer}`;
+          let correct = hiddenAnsDiv.innerHTML;
+          if (quizQuestions[m].correct_answer.includes("&amp;")) {
+            correct = quizQuestions[m].correct_answer.replace(/&amp;/g, "&");
+          }
 
           const items = document.getElementsByName(`answer${m}`);
           const question = document.querySelector(`.Question${m + 1}`);
-          let hiddenAnsDiv = document.createElement("div");
-          hiddenAnsDiv.innerHTML = `${quizQuestions[m].correct_answer}`;
 
-          let correct = hiddenAnsDiv.innerHTML;
           const inputSpot = document.querySelector(
             `input[value = "${correct}"][class="Question${m}"]`
           );
@@ -110,6 +115,8 @@ const getQuiz = (gameChoice) => {
                 `${wrongSpotId}-container`
               );
 
+              console.log(`item.value ${item.value}`);
+              console.log(`correct ${correct}`);
               if (item.value === correct) {
                 console.log("correct found");
                 question.style.border = "3px solid #A9E9B3";
@@ -129,7 +136,9 @@ const getQuiz = (gameChoice) => {
               }
             }
           }
+          console.log("--------------");
         }
+        console.log(numGraded);
         for (let spot in showAns) {
           showAns[
             spot
