@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(cors());
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "./quiz.html"));
+  res.sendFile(path.join(__dirname, "../public/quiz.html"));
 });
 
 const baseURL = "https://opentdb.com/api.php";
