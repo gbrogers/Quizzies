@@ -151,19 +151,6 @@ const getQuiz = (gameChoice) => {
 }; //end of getQuiz function
 
 const reset = () => {
-  // let showAns = document.querySelectorAll(".show-score");
-  // for (let spot in showAns) {
-  //   showAns[spot].innerHTML = "";
-  // }
-  // form.style.display = "block";
-  // quesSection.style.display = "none";
-  // tryAgain.style.display = "none";
-  // checkAns.style.display = "none";
-  // let ansContainers = document.getElementsByClassName("answer-containers");
-  // for (let container in ansContainers) {
-  //   container.style.backgroundColor = "";
-  // }
-
   location.reload();
 };
 
